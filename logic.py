@@ -1,11 +1,12 @@
-def isNumValid(matrix, num, row, col):
+def validNum(matrix, num, row, col):
 	'''
 	Checa se ha numeros repetidos na mesma linha,
 	coluna ou secao da matriz do jogo.
 	'''
-	num = abs(num)
 	inicio = 0
 	fim = col
+	if col > 9:
+		return False
 	section = 9*[0]
 	starts = [0, 3, 6]
 	mids = [1, 4, 7]
@@ -33,10 +34,12 @@ def isNumValid(matrix, num, row, col):
 		section += matrix[row][inicio:fim]
 	cont = 0
 	# Por fim, checa todas as 3 condicoes de validacao
-	while cont < 9:
-		if matrix[row][cont] == num or matrix[cont][col] == num or section[cont] == num:
-			cont = 10
-		cont += 1
+	if num != 0:
+		num = abs(num)
+		while cont < 9:
+			if matrix[row][cont] == num or matrix[cont][col] == num or section[cont] == num:
+				cont = 10
+			cont += 1
 	if cont > 9:
 		return False
 	else:
@@ -48,7 +51,7 @@ def addTips(filename, matrix):
 	tips = getTips(filename)
 	for num in tips:
 		row, col, num = map(int, num.split(':'))
-		if isNumValid(matrix, num, row, col):
+		if validNum(matrix, num, row, col):
 			matrix[row][col] = num
 		else:
 			matrix[row][col] = -num
@@ -71,11 +74,13 @@ def getTips(filename):
 	return tips
 
 
-def catchError(matrix):
-	'''Checa se há algum erro na matriz do jogo.'''
-	error = False
+def validGame(matrix):
+	'''Dada a matriz, checa a validade do jogo.'''
+	valid = True
+	i = 0
+	j = 0
 	for i in range(9):
 		for j in range(9):
 			if matrix[i][j] < 0:
-				error = True
-	return error
+				valid = False
+	return valid

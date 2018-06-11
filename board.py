@@ -1,5 +1,6 @@
 from os import system
-from styles import *
+from util import getColors
+
 
 def build(matrix):
 	'''Constroi o tabuleiro do Sudoku, limpando a instancia anterior.'''

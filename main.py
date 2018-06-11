@@ -6,14 +6,7 @@ Julia Hellen Rocha Vieira, 417425
 '''
 
 from os import system
+import game
+
 system('clear')
-
-from logic import *
-import board
-
-MATRIZ = [[0 for i in range(9)] for i in range(9)]
-
-addTips('settings.txt', MATRIZ)
-tips = getTips('settings.txt')
-print(board.build(MATRIZ))
-print(tips)
+game.interactive()

@@ -3,7 +3,12 @@ import board
 from logic import *
 
 
-def formatInput():
+def formatInput() -> str:
+  '''Formats the user input to be used in the game.
+
+  Takes the user input and formats it in a way that
+  is easier to be added to the game matrix.
+  '''
   columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
   user_input = input()
   result = ''
@@ -26,7 +31,11 @@ def formatInput():
 
 
 def interactive():
-  '''Modo interativo do jogo.'''
+  '''Game interactive mode.
+
+  Runs the full, user interactive Sudoku game,
+  asking for the player input at each turn.
+  '''
   matrix = [[0 for j in range(9)] for i in range(9)]
   addTips('config.txt', matrix)
   tips = getTips('config.txt')

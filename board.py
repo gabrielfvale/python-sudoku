@@ -2,8 +2,16 @@ from os import system
 from util import getColors
 
 
-def build(matrix):
-	'''Constroi o tabuleiro do Sudoku, limpando a instancia anterior.'''
+def build(matrix: list) -> str:
+	'''Builds the game board.
+
+	Retrives the game matrix and builds a
+	board that is easy for the end user to
+	understand.
+
+	Args:
+		matrix: The 9x9 game matrix.
+	'''
 	system('clear')
 	colors = getColors()
 	spacer1 = '  ++---+---+---++---+---+---++---+---+---++  \n'

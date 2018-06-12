@@ -1,7 +1,17 @@
-def validNum(matrix, num, row, col):
-	'''
-	Checa se ha numeros repetidos na mesma linha,
-	coluna ou secao da matriz do jogo.
+def validNum(matrix: list, num: int, row: int, col: int) -> bool:
+	'''Validates a number.
+
+	Checks if there are non-unique numbers in the same line,
+	column or section of the game matrix.
+
+	Args:
+		matrix: A 9x9 matrix of numbers for Sudoku.
+		num: The number to be compared.
+		row: The row of the matrix that the number is in.
+		col: The column of the matrix that the number is in.
+
+	Returns:
+		A bool holding the validity of the number.
 	'''
 	start = 0
 	end = col
@@ -46,8 +56,16 @@ def validNum(matrix, num, row, col):
 		return True
 
 
-def addTips(filename, matrix):
-	'''Insere as pistas na matriz do Sudoku.'''
+def addTips(filename: str, matrix: list):
+	'''Inserts the tips in the matrix.
+
+	Opens the configuration file and inserts every
+	tip onto the Sudoku matrix.
+
+	Args:
+		filename: The file to be opened.
+		matrix: The matrix that is going to be changed.
+	'''
 	tips = getTips(filename)
 	for num in tips:
 		row, col, num = map(int, num.split(':'))
@@ -57,10 +75,18 @@ def addTips(filename, matrix):
 			matrix[row][col] = -num
 
 
-def getTips(filename):
-	'''
-	Abre o arquivo de configuracoes, retornando 
-	os valores em uma lista melhor formatada.
+def getTips(filename: str) -> list:
+	'''Retrieves game tips from a file.
+
+	Opens a configuration file containing the game tips,
+	and returns them with an easy to use format.
+
+	Args:
+		filename: The file to be opened.
+	
+	Returns:
+		A list of tips retrieved from the file. For example:
+		['2:0:3', '0:5:3', '7:3:7']
 	'''
 	tips = []
 	columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
@@ -74,8 +100,19 @@ def getTips(filename):
 	return tips
 
 
-def validGame(matrix):
-	'''Dada a matriz, checa a validade do jogo.'''
+def validGame(matrix: list):
+	'''Checks if a game is valid.
+
+	Given the game matrix, checks if there are any
+	numbers lower than zero, condition that makes
+	the game invalid.
+
+	Args:
+		matrix: The game matrix to be tested.
+	
+	Returns:
+		A bool that indicates if the game is valid or not.
+	'''
 	valid = True
 	i = 0
 	j = 0

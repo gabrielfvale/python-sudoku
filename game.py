@@ -60,13 +60,13 @@ def interactive():
       elif validNum(matrix, num, row, col):
         matrix[row][col] = num
         msg = util.ok('Entre com sua jogada:')
+        i += 1
       else:
         if row < 9 and col < 10 and num < 10:
           matrix[row][col] = -num
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')
-      i += 1
-    #print(board.build(matrix))
+    print(board.build(matrix, tips))
   else:
     print(board.build(matrix, tips))
     print(util.error('O arquivo de configuracoes possui dicas invalidas.'))

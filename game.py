@@ -44,7 +44,7 @@ def interactive():
     msg = util.ok('Entre com sua jogada:')
     lastError = [0, 0]
     while i < (81-len(tips)):
-      print(board.build(matrix))
+      print(board.build(matrix, tips))
       print(msg)
       r, c = lastError
       if matrix[r][c] < 0:
@@ -66,9 +66,9 @@ def interactive():
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')
       i += 1
-    print('')
+    #print(board.build(matrix))
   else:
-    print(board.build(matrix))
+    print(board.build(matrix, tips))
     print(util.error('O arquivo de configuracoes possui dicas invalidas.'))
 
 

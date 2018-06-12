@@ -2,7 +2,7 @@ from os import system
 from util import getColors
 
 
-def build(matrix: list) -> str:
+def build(matrix: list, tips: list) -> str:
 	'''Builds the game board.
 
 	Retrives the game matrix and builds a
@@ -11,6 +11,10 @@ def build(matrix: list) -> str:
 
 	Args:
 		matrix: The 9x9 game matrix.
+		tips: The list of tips on the board.
+	
+	Returns:
+		A string containing the whole board.
 	'''
 	system('clear')
 	colors = getColors()
@@ -26,10 +30,14 @@ def build(matrix: list) -> str:
 				num = ' '
 			elif num < 0:
 				num = colors['ERRB'] + str(-num)
+			num_pos = '%d:%d' % (i, j)
+			for t in tips:
+				if num_pos == t[:3]:
+					num = colors['TIP'] + str(num)
 			if j % 3 == 0:
-				line += '| {}{}{} |'.format(colors['NUM'], num, colors['PB'])
+				line += '| %s%s%s |' % (colors['NUM'], num, colors['PB'])
 			else:
-				line += '{} {} {}|'.format(colors['NUM'], num, colors['PB'])
+				line += '%s %s %s|' % (colors['NUM'], num, colors['PB'])
 		line += '|{} \n'.format(i+1)
 		board += line
 		if i == 2 or i == 5:

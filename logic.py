@@ -5,7 +5,7 @@ def validNum(matrix, num, row, col):
 	'''
 	inicio = 0
 	fim = col
-	if col > 9:
+	if row > 8 or col > 9 or num > 9:
 		return False
 	section = 9*[0]
 	starts = [0, 3, 6]
@@ -70,7 +70,7 @@ def getTips(filename):
 			row = int(line[2:3])-1
 			col = colunas.index(line[:1].lower())
 			num = int(line[-1])
-			tips.append('{}:{}:{}'.format(row, col, num))
+			tips.append('%d:%d:%d' % (row, col, num))
 	return tips
 
 

@@ -22,7 +22,7 @@ def formatInput():
     col = 10
   row = int(row)-1
   num = int(num)
-  return [row, col, num]
+  return '%d:%d:%d' % (row, col, num)
 
 
 def interactive():
@@ -40,12 +40,19 @@ def interactive():
       r, c = lastError
       if MATRIZ[r][c] < 0:
         MATRIZ[r][c] = 0
-      row, col, num = formatInput()
-      if validNum(MATRIZ, num, row, col):
+      user_input = formatInput()
+      row, col, num = map(int, user_input.split(':'))
+      inTips = False
+      for t in tips:
+        if user_input[:3] == t[:3]:
+          inTips = True
+      if inTips:
+        msg = util.error('As dicas nao podem ser sobrescritas.')
+      elif validNum(MATRIZ, num, row, col):
         MATRIZ[row][col] = num
         msg = util.ok('Entre com sua jogada:')
       else:
-        if col < 10:
+        if row < 9 and col < 10 and num < 10:
           MATRIZ[row][col] = -num
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')

@@ -67,6 +67,10 @@ def interactive():
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')
     print(board.build(matrix, tips))
+    print(util.ok('Parabens, voce concluiu o jogo!'))
+    e = input('    Jogar novamente? (Y/N)\n')
+    if e.lower() == 'y' or e == '':
+      interactive()
   else:
     print(board.build(matrix, tips))
     print(util.error('O arquivo de configuracoes possui dicas invalidas.'))

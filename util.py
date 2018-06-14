@@ -24,7 +24,7 @@ def error(msg: str) -> str:
 		msg: The message to be formated.
 	
 	Returns:
-		A string with the status indicator.
+		A string with ERROR status indicator.
 	'''
 	colors = getColors()
 	result = colors['ERR'] + '   ' + colors['END'] + ' ' + msg
@@ -38,7 +38,7 @@ def ok(msg: str) -> str:
 		msg: The message to be formated.
 	
 	Returns:
-		A string with the status indicator.
+		A string with OK status indicator.
 	'''
 	colors = getColors()
 	result = colors['OK'] + '   ' + colors['END'] + ' ' + msg

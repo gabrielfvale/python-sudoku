@@ -8,6 +8,11 @@ def formatInput() -> str:
 
   Takes the user input and formats it in a way that
   is easier to be added to the game matrix.
+
+  Returns:
+    A string with the formated input with the format 
+    'row:column:number'. For example:
+    'A , 3:1' becomes '2:0:1'
   '''
   columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
   user_input = input()
@@ -24,7 +29,7 @@ def formatInput() -> str:
   if col.lower() in columns:
     col = columns.index(col.lower())
   else:
-    col = 10
+    col = -1
   row = int(row)-1
   num = int(num)
   return '%d:%d:%d' % (row, col, num)
@@ -62,7 +67,7 @@ def interactive():
         msg = util.ok('Entre com sua jogada:')
         i += 1
       else:
-        if row < 9 and col < 10 and num < 10:
+        if row < 9 and col > 0 and num < 10:
           matrix[row][col] = -num
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')

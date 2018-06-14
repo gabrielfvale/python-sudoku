@@ -13,41 +13,29 @@ def validNum(matrix: list, num: int, row: int, col: int) -> bool:
 	Returns:
 		A bool holding the validity of the number.
 	'''
-	start = 0
-	end = col
-	if row > 8 or col > 9 or num > 9:
+	if row > 8 or col < 0 or num > 9:
 		return False
-	section = 9*[0]
-	starts = [0, 3, 6]
-	mids = [1, 4, 7]
-	ends = [2, 5, 8]
-	if end < 3:
-		end = 3
-	elif end >= 3 and end < 6:
+	start = 0
+	section = []
+	if col >= 3 and col < 6:
 		start = 3
-		end = 6
-	elif end >= 6 and end < 10:
+	elif col >= 6 and col < 10:
 		start = 6
-		end = 9
-	# Constroi a secao
-	if row in starts:
-		section = matrix[row][start:end]
-		section += matrix[row+1][start:end]
-		section += matrix[row+2][start:end]
-	if row in mids:
-		section = matrix[row-1][start:end]
-		section += matrix[row][start:end]
-		section += matrix[row+1][start:end]
-	if row in ends:
-		section = matrix[row-2][start:end]
-		section += matrix[row-1][start:end]
-		section += matrix[row][start:end]
+	end = start + 3
+	# Section builder, using a constant
+	const = 0
+	if row > 2 and row < 6:
+		const = row - 3
+	elif row >= 6:
+		const = row - 6
+	for k in range(3):
+		section += matrix[row-const+k][start:end]
+	# Checks all the conditions
 	cont = 0
-	# Por fim, checa todas as 3 condicoes de validacao
 	if num != 0:
 		num = abs(num)
 		while cont < 9:
-			if matrix[row][cont] == num or matrix[cont][col] == num or section[cont] == num:
+			if num in [matrix[row][cont], matrix[cont][col], section[cont]]:
 				cont = 10
 			cont += 1
 	if cont > 9:
@@ -100,7 +88,7 @@ def getTips(filename: str) -> list:
 	return tips
 
 
-def validGame(matrix: list):
+def validGame(matrix: list) -> bool:
 	'''Checks if a game is valid.
 
 	Given the game matrix, checks if there are any
@@ -114,10 +102,13 @@ def validGame(matrix: list):
 		A bool that indicates if the game is valid or not.
 	'''
 	valid = True
-	i = 0
-	j = 0
+	tips = 0
 	for i in range(9):
 		for j in range(9):
+			if matrix[i][j] != 0:
+				tips += 1
 			if matrix[i][j] < 0:
 				valid = False
+	if tips < 1 or tips > 80:
+		valid = False
 	return valid

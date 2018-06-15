@@ -23,7 +23,7 @@ def validNum(matrix: list, num: int, row: int, col: int) -> bool:
 		start = 6
 	end = start + 3
 	# Section builder, using a constant
-	const = 0
+	const = row
 	if row > 2 and row < 6:
 		const = row - 3
 	elif row >= 6:

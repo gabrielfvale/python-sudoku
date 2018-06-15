@@ -63,6 +63,39 @@ def addTips(filename: str, matrix: list):
 			matrix[row][col] = -num
 
 
+def formatInput(uinput: str) -> str:
+	'''Formats the input to be used in the game.
+
+	Takes the input and formats it in a way that
+	is easier to be added to the game matrix.
+
+	Args:
+		uinput: The input that is going to be formated.
+
+	Returns:
+		A string with the format 'row:column:number'.
+		For example, 'A , 3:1' becomes '2:0:1'
+	'''
+	columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+	result = ''
+	for char in uinput:
+		if char == ',' or char == ':':
+			char = ' '
+		result += char
+	if len(result) > 4:
+		col, row, num = result.split()
+	else:
+		col, row = result.replace('D', '').split()
+		num = 0
+	if col.lower() in columns:
+		col = columns.index(col.lower())
+	else:
+		col = -1
+	row = int(row)-1
+	num = int(num)
+	return '%d:%d:%d' % (row, col, num)
+
+
 def getTips(filename: str) -> list:
 	'''Retrieves game tips from a file.
 
@@ -77,14 +110,10 @@ def getTips(filename: str) -> list:
 		['2:0:3', '0:5:3', '7:3:7']
 	'''
 	tips = []
-	columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
 	with open(filename, 'r') as settings_obj:
 		for line in settings_obj:
 			line = line.strip()
-			row = int(line[2:3])-1
-			col = columns.index(line[:1].lower())
-			num = int(line[-1])
-			tips.append('%d:%d:%d' % (row, col, num))
+			tips.append(formatInput(line))
 	return tips
 
 

@@ -13,7 +13,7 @@ def validNum(matrix: list, num: int, row: int, col: int) -> bool:
 	Returns:
 		A bool holding the validity of the number.
 	'''
-	if row > 8 or col < 0 or num > 9:
+	if row > 8 or col < 0 or num < 0 or num > 9:
 		return False
 	start = 0
 	section = []

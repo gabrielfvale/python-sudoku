@@ -36,7 +36,7 @@ def interactive():
         msg = util.ok('Entre com sua jogada:')
         i += 1
       else:
-        if row < 9 and col >= 0 and num < 10:
+        if row < 9 and col >= 0 and 10 > num > 0:
           matrix[row][col] = -num
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')

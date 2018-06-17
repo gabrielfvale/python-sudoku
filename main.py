@@ -5,8 +5,8 @@ Gabriel Freire do Vale, 418788
 Julia Hellen Rocha Vieira, 417425
 '''
 
-from os import system
+import util
 import game
 
-system('clear')
+util.clearConsole()
 game.interactive()

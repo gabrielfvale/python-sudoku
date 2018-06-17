@@ -3,7 +3,6 @@ import board
 from logic import *
 
 
-
 def interactive():
   '''Game interactive mode.
 
@@ -18,6 +17,7 @@ def interactive():
     msg = util.ok('Entre com sua jogada:')
     lastError = [0, 0]
     while i < (81-len(tips)):
+      util.clearConsole()
       print(board.build(matrix, tips))
       print(msg)
       r, c = lastError

@@ -43,3 +43,9 @@ def ok(msg: str) -> str:
 	colors = getColors()
 	result = colors['OK'] + '   ' + colors['END'] + ' ' + msg
 	return result
+
+
+def clearConsole():
+	'''Clears the system console.
+	'''
+	print('\033[H\033[J') # ANSI escape code

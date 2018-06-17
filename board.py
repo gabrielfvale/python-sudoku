@@ -1,4 +1,3 @@
-from os import system
 from util import getColors
 
 
@@ -16,7 +15,6 @@ def build(matrix: list, tips: list) -> str:
 	Returns:
 		A string containing the whole board.
 	'''
-	system('clear')
 	colors = getColors()
 	spacer1 = '  ++---+---+---++---+---+---++---+---+---++  \n'
 	spacer2 = '  ++===+===+===++===+===+===++===+===+===++  \n'

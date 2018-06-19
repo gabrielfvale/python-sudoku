@@ -9,4 +9,4 @@ import util
 import game
 
 util.clearConsole()
-game.interactive()
+game.batch()

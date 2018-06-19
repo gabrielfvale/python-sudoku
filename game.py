@@ -50,6 +50,14 @@ def interactive():
     print(util.error('O arquivo de configuracoes possui dicas invalidas.'))
 
 
-def batch(matrix):
+def batch():
   '''Modo batch do jogo.'''
-  print('MODO BATCH')
+  matrix = [[0 for j in range(9)] for i in range(9)]
+  addTips('config.txt', matrix)
+  tips = getTips('config.txt')
+  if validGame(matrix):
+      addPlays('jogadas.txt', matrix)
+      plays = getPlays('jogadas.txt')
+  else:
+      print('O arquivo de configuracoes possui dicas invalidas.')
+

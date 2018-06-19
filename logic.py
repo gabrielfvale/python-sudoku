@@ -63,6 +63,56 @@ def addTips(filename: str, matrix: list):
 			matrix[row][col] = -num
 
 
+def addPlays(filename: str, matrix: list):
+	''' Check if the play is valid.
+
+	Opens the configuration file and verifies 
+	that the move is valid.
+
+	Args:
+		filename: The file to be opened.
+		matrix: The matrix for play validation. 
+	'''
+	plays = getTips(filename)
+	for num in plays:
+		row, col, num = map(int, num.split(':'))
+		valid = 0
+		if validNum(matrix, num, row, col):
+			if col == 0: col = 'A'
+			elif col == 1: col = 'B'
+			elif col == 2: col = 'C'
+			elif col == 3: col = 'D'
+			elif col == 4: col = 'E'
+			elif col == 5: col = 'F'
+			elif col == 6: col = 'G'
+			elif col == 7: col = 'H'
+			elif col == 8: col = 'I'
+			row += 1
+    		
+			print('A jogada (' + col + ',' + str(row) + ') =', num, 'eh valida')
+
+			valid +=1
+	
+		else:
+			if col == 0: col = 'A'
+			elif col == 1: col = 'B'
+			elif col == 2: col = 'C'
+			elif col == 3: col = 'D'
+			elif col == 4: col = 'E'
+			elif col == 5: col = 'F'
+			elif col == 6: col = 'G'
+			elif col == 7: col = 'H'
+			elif col == 8: col = 'I'
+			row += 1
+    		
+			print('A jogada (' + col + ',' + str(row) + ') =', num, 'eh valida')
+	if valid < 81:
+		print('A grade nao foi preenchida')
+	else:
+		print('A grade foi preenchida com sucesso!')
+
+
+
 def formatInput(uinput: str) -> str:
 	'''Formats the input to be used in the game.
 
@@ -107,6 +157,26 @@ def getTips(filename: str) -> list:
 	
 	Returns:
 		A list of tips retrieved from the file. For example:
+		['2:0:3', '0:5:3', '7:3:7']
+	'''
+	tips = []
+	with open(filename, 'r') as settings_obj:
+		for line in settings_obj:
+			line = line.strip()
+			tips.append(formatInput(line))
+	return tips
+
+def getPlays(filename: str) -> list:
+	'''Retrieves plays from a file.
+
+	Opens a configuration file containing the moves,
+	and returns them with an easy to use format.
+
+	Args:
+		filename: The file to be opened.
+	
+	Returns:
+		A list of plays retrieved from the file. For example:
 		['2:0:3', '0:5:3', '7:3:7']
 	'''
 	tips = []

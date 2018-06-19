@@ -91,7 +91,7 @@ def addPlays(filename: str, matrix: list):
     		
 			print('A jogada (' + col + ',' + str(row) + ') =', num, 'eh valida')
 
-			valid +=1
+			
 	
 		else:
 			if col == 0: col = 'A'
@@ -104,9 +104,10 @@ def addPlays(filename: str, matrix: list):
 			elif col == 7: col = 'H'
 			elif col == 8: col = 'I'
 			row += 1
+			valid +=1
     		
-			print('A jogada (' + col + ',' + str(row) + ') =', num, 'eh valida')
-	if valid < 81:
+			print('A jogada (' + col + ',' + str(row) + ') =', num, 'eh invalida')
+	if valid > 0:
 		print('A grade nao foi preenchida')
 	else:
 		print('A grade foi preenchida com sucesso!')

@@ -10,8 +10,8 @@ def interactive():
   asking for the player input at each turn.
   '''
   matrix = [[0 for j in range(9)] for i in range(9)]
-  addTips('config.txt', matrix)
-  tips = getTips('config.txt')
+  tips = getFromFile('config.txt')
+  addTips(tips, matrix)
   if validGame(matrix):
     i = 0
     msg = util.ok('Entre com sua jogada:')
@@ -40,12 +40,14 @@ def interactive():
           matrix[row][col] = -num
           lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')
+    util.clearConsole()
     print(board.build(matrix, tips))
     print(util.ok('Parabens, voce concluiu o jogo!'))
-    e = input('    Jogar novamente? (Y/N)\n')
+    e = input('    Jogar novamente? (Y/n)\n')
     if e.lower() == 'y' or e == '':
       interactive()
   else:
+    util.clearConsole()
     print(board.build(matrix, tips))
     print(util.error('O arquivo de configuracoes possui dicas invalidas.'))
 
@@ -53,11 +55,28 @@ def interactive():
 def batch():
   '''Modo batch do jogo.'''
   matrix = [[0 for j in range(9)] for i in range(9)]
-  addTips('config.txt', matrix)
-  tips = getTips('config.txt')
+  tips = getFromFile('config.txt')
+  addTips(tips, matrix)
+  plays = getFromFile('plays.txt')
+  columns = columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
   if validGame(matrix):
-      addPlays('jogadas.txt', matrix)
-      plays = getPlays('jogadas.txt')
+    total = 0
+    for turn in plays:
+      inTips = False
+      for t in tips:
+        if turn[:3] == t[:3]:
+          inTips = True
+      row, col, num = map(int, turn.split(':'))
+      if inTips:
+        print('A jogada (%s,%d) = %d eh invalida!' % (columns[col].upper(), row+1, num))
+      elif validNum(matrix, num, row, col):
+        matrix[row][col] = num
+        total += 1
+        print('A jogada (%s,%d) = %d eh valida!' % (columns[col].upper(), row+1, num))
+    if len(tips)+total == 81:
+      print('A grade foi preenchida com sucesso!')
+    else:
+      print('A grade nao foi preenchida!')
   else:
       print('O arquivo de configuracoes possui dicas invalidas.')
 

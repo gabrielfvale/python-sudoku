@@ -34,7 +34,10 @@ def interactive():
       elif validNum(matrix, num, row, col):
         matrix[row][col] = num
         msg = util.ok('Entre com sua jogada:')
-        i += 1
+        if num != 0:
+          i += 1
+        else:
+          i -= 1
       else:
         if row < 9 and col >= 0 and 10 > num > 0:
           matrix[row][col] = -num

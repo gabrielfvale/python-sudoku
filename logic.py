@@ -15,6 +15,8 @@ def validNum(matrix: list, num: int, row: int, col: int) -> bool:
 	'''
 	if row > 8 or col < 0 or num < 0 or num > 9:
 		return False
+	if matrix[row][col] == num:
+		return True
 	start = 0
 	section = []
 	if col >= 3 and col < 6:
@@ -90,7 +92,7 @@ def formatInput(uinput: str) -> str:
 	elif len(result) == 2:
 		col, row = result
 		col = col[1:]
-		num = 0
+		num = '0'
 	else:
 		return error
 	if row not in possible_nums or num not in possible_nums:

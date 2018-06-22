@@ -15,14 +15,14 @@ def interactive():
   if validGame(matrix):
     i = 0
     msg = util.ok('Entre sua jogada:')
-    lastError = [0, 0]
+    errorcleanup = [0, 0, 0]
     while i < (81-len(tips)):
       util.clearConsole()
       print(board.build(matrix, tips))
       print(msg)
-      r, c = lastError
+      r, c, n = errorcleanup
       if matrix[r][c] < 0:
-        matrix[r][c] = 0
+        matrix[r][c] = n
       user_input = formatInput(input())
       row, col, num = map(int, user_input.split(':'))
       inTips = False
@@ -40,8 +40,8 @@ def interactive():
         matrix[row][col] = num
       else:
         if row < 9 and col >= 0 and 10 > num > 0:
+          errorcleanup = row, col, matrix[row][col]
           matrix[row][col] = -num
-          lastError = [row, col]
         msg = util.error('Jogada invalida. Por favor, jogue novamente.')
     util.clearConsole()
     print(board.build(matrix, tips))

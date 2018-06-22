@@ -14,7 +14,7 @@ def interactive():
   addTips(tips, matrix)
   if validGame(matrix):
     i = 0
-    msg = util.ok('Entre com sua jogada:')
+    msg = util.ok('Entre sua jogada:')
     lastError = [0, 0]
     while i < (81-len(tips)):
       util.clearConsole()
@@ -32,12 +32,12 @@ def interactive():
       if inTips:
         msg = util.error('As dicas nao podem ser sobrescritas.')
       elif validNum(matrix, num, row, col):
-        matrix[row][col] = num
-        msg = util.ok('Entre com sua jogada:')
-        if num != 0:
+        msg = util.ok('Entre sua jogada:')
+        if matrix[row][col] == 0 and num != 0:
           i += 1
-        else:
+        if matrix[row][col] != 0 and num == 0:
           i -= 1
+        matrix[row][col] = num
       else:
         if row < 9 and col >= 0 and 10 > num > 0:
           matrix[row][col] = -num
@@ -52,11 +52,17 @@ def interactive():
   else:
     util.clearConsole()
     print(board.build(matrix, tips))
-    print(util.error('O arquivo de configuracoes possui dicas invalidas.'))
+    print(util.error('Arquivo de configuracoes invalido.'))
 
 
 def batch():
-  '''Modo batch do jogo.'''
+  '''Game batch mode.
+
+  Reads two files, one containing the tips and the other
+  containing the plays. Each turn is tested, printing if
+  it is valid or not. At the end, shows a message if the
+  game was completed.
+  '''
   matrix = [[0 for j in range(9)] for i in range(9)]
   tips = getFromFile('config.txt')
   addTips(tips, matrix)
@@ -76,10 +82,11 @@ def batch():
         matrix[row][col] = num
         total += 1
         print('A jogada (%s,%d) = %d eh valida!' % (columns[col].upper(), row+1, num))
+      else:
+        print('A jogada (%s,%d) = %d eh invalida!' % (columns[col].upper(), row+1, num))
     if len(tips)+total == 81:
       print('A grade foi preenchida com sucesso!')
     else:
       print('A grade nao foi preenchida!')
   else:
-      print('O arquivo de configuracoes possui dicas invalidas.')
-
+      print('Arquivo de configuracoes invalido.')

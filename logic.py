@@ -77,16 +77,24 @@ def formatInput(uinput: str) -> str:
 		For example, 'A , 3:1' becomes '2:0:1'
 	'''
 	columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+	possible_nums = [str(x) for x in range(10)]
 	result = ''
+	error = '0:0:-1'
 	for char in uinput:
 		if char == ',' or char == ':':
 			char = ' '
 		result += char
-	if len(result) > 4:
-		col, row, num = result.split()
-	else:
-		col, row = result.replace('D', '').split()
+	result = result.split()
+	if len(result) == 3:
+		col, row, num = result
+	elif len(result) == 2:
+		col, row = result
+		col = col[1:]
 		num = 0
+	else:
+		return error
+	if row not in possible_nums or num not in possible_nums:
+		return error
 	if col.lower() in columns:
 		col = columns.index(col.lower())
 	else:
@@ -113,7 +121,8 @@ def getFromFile(filename: str) -> list:
 	with open(filename, 'r') as settings_obj:
 		for line in settings_obj:
 			line = line.strip()
-			formatted_list.append(formatInput(line))
+			if line:
+				formatted_list.append(formatInput(line))
 	return formatted_list
 
 
